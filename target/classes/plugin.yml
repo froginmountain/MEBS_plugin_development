@@ -1,0 +1,24 @@
+name: LongTerm
+version: '1.0-SNAPSHOT'
+main: com.longterm.LongTerm
+api-version: 1.20
+commands:
+  money:
+    description: 코인 관련
+    aliases: 
+      - 돈
+      - m
+      - ㄷ
+    usage: /money
+  admin:
+    description: for ADMIN
+    aliases:
+      - ADMIN
+    usage: /admin money {user's name}
+  estate:
+    description: 부동산 관련
+    aliases:
+      - e
+      - 부동산
+      - ㅂ
+    usage: /e

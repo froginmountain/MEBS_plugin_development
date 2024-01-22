@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="LongTerm:jar">
+    <output-path>$USER_HOME$/Desktop/minecraft 1.20.4 spigot for plugins develope/plugins</output-path>
+    <root id="archive" name="LongTerm.jar">
+      <element id="module-output" name="LongTerm" />
+    </root>
+  </artifact>
+</component>

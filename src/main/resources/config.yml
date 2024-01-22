@@ -1,0 +1,13 @@
+enabled: true
+spawn_location:
+  world: world
+  x: 0
+  y: ~
+  z: 0
+messages:
+  welcome: "Welcome to Time Machine Server! %player%!"
+items:
+  - name: "test_item"
+    id: "minecraft:stick"
+    damage: 0
+    amount: 2

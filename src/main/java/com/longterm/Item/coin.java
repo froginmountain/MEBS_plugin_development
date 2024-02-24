@@ -31,7 +31,14 @@ public class coin implements Listener {
         this.lore.add("From "+ player.getName());
         this.lore.add("Amount : " + value);
         meta.setLore(this.lore);
-        meta.setCustomModelData(777);
+        if(value <= 100) {
+            meta.setCustomModelData(100777);
+        } else  if (value <= 1000) {
+            meta.setCustomModelData(100077);
+        } else  if (value <= 10000) {
+            meta.setCustomModelData(100007);
+        }
+
         this.item.setItemMeta(meta);
     }
 
@@ -46,23 +53,28 @@ public class coin implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         // 플레이어가 우클릭하면서 손에 들고 있는 아이템이 CustomItem인 경우
         if (event.getItem() != null && event.getItem().getItemMeta().hasCustomModelData()) {
-            int value = Integer.parseInt(event.getItem().getItemMeta().getDisplayName().replace(" 원",""));
-            if(event.getItem().getItemMeta().getCustomModelData() == 777 && value == Integer.parseInt(event.getItem().getItemMeta().getLore().get(1).replace("Amount : ", ""))) {
-                int origin = config.getConfig().getInt("users."+event.getPlayer().getUniqueId().toString()+".money");
-                config.getConfig().set("users."+event.getPlayer().getUniqueId().toString()+".money", origin + value);
-                config.saveConfig();
-                tasktimer.restartScoreboardTask();
-                int current_amount = event.getPlayer().getInventory().getItemInMainHand().getAmount();
-                event.getPlayer().getInventory().getItemInMainHand().setAmount(current_amount - 1);
+            if(event.getItem().getType().equals(Material.PAPER) || event.getItem().getItemMeta().getDisplayName().contains("원")) {
+                int value = Integer.parseInt(event.getItem().getItemMeta().getDisplayName().replace(" 원",""));
+                if((event.getItem().getItemMeta().getCustomModelData() == 100777 ||
+                        event.getItem().getItemMeta().getCustomModelData() == 100077 ||
+                        event.getItem().getItemMeta().getCustomModelData() == 100007
+                ) && value == Integer.parseInt(event.getItem().getItemMeta().getLore().get(1).replace("Amount : ", ""))) {
+                    int origin = config.getConfig().getInt("users."+event.getPlayer().getUniqueId().toString()+".money");
+                    config.getConfig().set("users."+event.getPlayer().getUniqueId().toString()+".money", origin + value);
+                    config.saveConfig();
+                    tasktimer.restartScoreboardTask();
+                    int current_amount = event.getPlayer().getInventory().getItemInMainHand().getAmount();
+                    event.getPlayer().getInventory().getItemInMainHand().setAmount(current_amount - 1);
 
-                String[] toLog = new String[4];
-                toLog[0] = Integer.toString(origin);
-                toLog[1] = Integer.toString(value);
-                toLog[2] = event.getItem().getItemMeta().getLore().get(0).replace("From ","");
-                toLog[3] = Integer.toString(origin + value);
-                new about_log().writePlayerLog(event.getPlayer(), "GetCoin", toLog);
+                    String[] toLog = new String[4];
+                    toLog[0] = Integer.toString(origin);
+                    toLog[1] = Integer.toString(value);
+                    toLog[2] = event.getItem().getItemMeta().getLore().get(0).replace("From ","");
+                    toLog[3] = Integer.toString(origin + value);
+                    new about_log().writePlayerLog(event.getPlayer(), "GetCoin", toLog);
 
-                event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(value+"원을 획득하셨습니다!"));
+                    event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(value+"원을 획득하셨습니다!"));
+                }
             }
         }
     }

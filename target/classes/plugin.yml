@@ -22,3 +22,14 @@ commands:
       - 부동산
       - ㅂ
     usage: /e
+  shop:
+    description: 상인 관련
+    aliases:
+      - s
+      - 상점
+    usage: /s
+  test:
+    description: FOR TEST
+    aliases:
+      - t
+    usage: /t

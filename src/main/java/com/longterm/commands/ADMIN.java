@@ -2,6 +2,7 @@ package com.longterm.commands;
 
 import com.longterm.LongTerm;
 import com.longterm.innerFunc.about_log;
+import com.longterm.innerFunc.shop;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -31,9 +32,8 @@ public class ADMIN implements Listener, CommandExecutor {
                 Player target_player = Bukkit.getPlayer(args[1]);
                 target_player.sendMessage(new about_log().getPlayerLog(target_player).toString());
                 new about_log().createPlayerLog(target_player);
-            } else if(args[0].equalsIgnoreCase("HideName")) {
-                Player target_player = Bukkit.getPlayer(args[1]);
-                target_player.sendMessage("hidename : ");
+            } else if(args[0].equalsIgnoreCase("shopinit")) {
+                new shop().init_shopProduct();
             }
         }
         return true;

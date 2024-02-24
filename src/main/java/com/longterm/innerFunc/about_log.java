@@ -65,8 +65,17 @@ public class about_log {
             case "TakeCoin": //player, type, before coin, amount, current coin
                 finalWrite += ("[Take COIN][" + args[0] + "] - " + args[1] + " = ["+args[2]+"]");
                 break;
-            case "UseCoin": //player, type, Where, What
+            case "UseCoin": //player, type, before coin, amount, Where, What
                 finalWrite += ("[Use COIN] - ");
+                break;
+            case "BuyMaterial": //player, type, buyWhat, price, amount
+                finalWrite += ("[BUY MATERIAL] - BUY " + args[0] + " " + args[1] + " - EA : " + args[2]);
+                break;
+            case "SellMaterial": //player, type, sellWhat, price, amount
+                finalWrite += ("[SELL MATERIAL] - SELL " + args[0] + " " + args[1] + " - EA : " + args[2]);
+                break;
+            case "DoUpgrade": //player, type, what, price
+                finalWrite += ("[DoUpgrade] - UPGRADE " + args[0] + " " + args[1]);
                 break;
         }
         finalWrite += "\n";

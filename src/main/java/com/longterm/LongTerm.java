@@ -1,14 +1,14 @@
 package com.longterm;
 
-import com.longterm.commands.money;
-import com.longterm.commands.ADMIN;
-import com.longterm.commands.estate;
+import com.longterm.commands.*;
 
 import com.longterm.events.estate_click;
+import com.longterm.events.shop_click;
 
 import com.longterm.innerFunc.RunTaskTimer;
 import com.longterm.innerFunc.about_log;
 import com.longterm.innerFunc.inner_estate;
+import com.longterm.innerFunc.upgrade;
 
 import com.longterm.Item.coin;
 
@@ -31,6 +31,8 @@ public class LongTerm extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this,this);
         getServer().getPluginManager().registerEvents(new coin(), this);
         getServer().getPluginManager().registerEvents(new estate_click(), this);
+        getServer().getPluginManager().registerEvents(new shop_click(), this);
+        getServer().getPluginManager().registerEvents(new create_upgrade(), this);
 
         getServer().getOnlinePlayers().forEach(player -> {
             player.sendMessage("LongTerm Reload Complete!");
@@ -48,8 +50,15 @@ public class LongTerm extends JavaPlugin implements Listener {
         //땅 부여 관련 명령어
         getCommand("estate").setExecutor(new estate());
 
+        //shop 관련 명령어
+        getCommand("shop").setExecutor(new create_shop());
+
+        //FOR TEST
+        getCommand("test").setExecutor(new test());
+
         new estate_click().removeTNTCartRecipe();
         new inner_estate().InitPlayerFile();
+        new upgrade().init_upgradeProduct();
     }
 
     @EventHandler

@@ -29,10 +29,13 @@ public class estate_click implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e) {
         if(!e.getAction().name().equalsIgnoreCase("RIGHT_CLICK_AIR") && !e.getAction().name().equalsIgnoreCase("LEFT_CLICK_AIR")) {
             String estate_owner = new inner_estate().estateWho(e.getClickedBlock().getChunk(), e.getClickedBlock().getY());
-            //e.getPlayer().sendMessage(e.getItem().getType().name());
+            //e.getPlayer().sendMessage(e.getPlayer().getInventory().getItemInMainHand().toString());
             if(!estate_owner.equalsIgnoreCase(e.getPlayer().getName()) && !estate_owner.equalsIgnoreCase("None")) {
+
                 if(e.getAction().name().equalsIgnoreCase("PHYSICAL") || e.getAction().name().equalsIgnoreCase("RIGHT_CLICK_BLOCK")) {
-                    if(e.getClickedBlock().getType().toString().contains("DOOR") || e.getItem().getType().toString().contains("BUCKET") || e.getItem().getType().toString().contains("END_CRYSTAL")) {
+                    if(e.getPlayer().getInventory().getItemInMainHand().toString().contains("AIR")) {
+                        e.setCancelled(true);
+                    } else if(e.getClickedBlock().getType().toString().contains("DOOR") || e.getItem().getType().toString().contains("BUCKET") || e.getItem().getType().toString().contains("END_CRYSTAL") || e.getItem().getType().toString().contains("ENDER_PEARL")) {
                         e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§c권한이 없습니다."));
                         e.setCancelled(true);
                     }
